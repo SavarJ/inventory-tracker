@@ -18,9 +18,11 @@ app.set("view engine", "ejs");
 
 /* --------------------------------- Routes --------------------------------- */
 const indexRouter = require("./routers/index.router");
+const itemRouter = require("./routers/item.router");
 const pageNotFoundRouter = require("./routers/404.router");
 
 app.use("/", indexRouter);
+app.use("/:itemId/", itemRouter);
 app.use("*", pageNotFoundRouter);
 
 /* ------------------------------ Error Handler ----------------------------- */
