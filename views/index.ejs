@@ -54,6 +54,8 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Date Added</th>
+                <th>Last Edited</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -62,9 +64,12 @@
             </tr>
         </thead>
         <tbody>
+            <% const options={month: "numeric" , day:"numeric", hour: "numeric" , minute: "numeric"} %>
             <% items.forEach((item) => { %>
             <tr>
                 <td><%= item.id.substring(0,10) %></td>
+                <td><%= item.createdAt.toLocaleDateString('en-US', options) %></td>
+                <td><%= item.updatedAt.toLocaleDateString('en-US', options) %></td>
                 <td><%= item.name %></td>
                 <td><%= item.description %></td>
                 <td>$<%= item.price %></td>
