@@ -1,59 +1,87 @@
 const Item = require("../models/Item.model");
 
-const viewItems = async (req, res) => {
+const viewItems = async (req, res, next) => {
   const viewDeleted = req.query.viewDeleted === "true";
-  const items = await Item.find({ isDeleted: viewDeleted });
-  return res.render("items", { items });
+  try {
+    const items = await Item.find({ isDeleted: viewDeleted });
+    return res.render("items", { items });
+  } catch (error) {
+    return next(error);
+  }
 };
 
-const createItem = async (req, res) => {
+const createItem = async (req, res, next) => {
   const { name, price, quantity, description } = req.bodyObject;
   const item = new Item({ name, price, quantity, description });
-  await item.save();
-  return res.redirect("/");
+  try {
+    await item.save();
+    return res.redirect("/items");
+  } catch (error) {
+    return next(error);
+  }
 };
 
-const editItem = async (req, res) => {
+const editItem = async (req, res, next) => {
   const { name, price, quantity, description } = req.bodyObject;
   const { item } = req;
   item.name = name;
   item.price = price;
   item.quantity = quantity;
   item.description = description;
-  await item.save();
-  return res.redirect("/");
+  try {
+    await item.save();
+    return res.redirect("/items");
+  } catch (error) {
+    return next(error);
+  }
 };
 
-const decrementQuantity = async (req, res) => {
+const decrementQuantity = async (req, res, next) => {
   const { item } = req;
   item.quantity--;
-  await item.save();
-  return res.redirect("/");
+  try {
+    await item.save();
+    return res.redirect("/items");
+  } catch (error) {
+    return next(error);
+  }
 };
 
-const incrementQuantity = async (req, res) => {
+const incrementQuantity = async (req, res, next) => {
   const { item } = req;
   item.quantity++;
-  await item.save();
-  return res.redirect("/");
+  try {
+    await item.save();
+    return res.redirect("/items");
+  } catch (error) {
+    return next(error);
+  }
 };
 
-const deleteItem = async (req, res) => {
+const deleteItem = async (req, res, next) => {
   const { deletionComment } = req.body;
   const { item } = req;
   item.isDeleted = true;
   item.deletionComment = deletionComment;
-  await item.save();
-  return res.redirect("/");
+  try {
+    await item.save();
+    return res.redirect("/items");
+  } catch (error) {
+    return next(error);
+  }
 };
 
-const recoverItem = async (req, res) => {
+const recoverItem = async (req, res, next) => {
   const { itemId } = req.params;
   const { item } = req;
   item.isDeleted = false;
   item.deletionComment = null;
-  await item.save();
-  return res.redirect("/");
+  try {
+    await item.save();
+    return res.redirect("/items");
+  } catch (error) {
+    return next(error);
+  }
 };
 
 module.exports = {
