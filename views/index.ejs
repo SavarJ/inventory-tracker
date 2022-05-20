@@ -1,6 +1,52 @@
 <%- include("partials/header") %>
 <main>
     <h1 class="header">Inventory Tracker</h1>
+    <!-- Button trigger modal -->
+    <div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add New Item
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Bread"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" required
+                                    placeholder="Made using whole wheat"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">Quantity</label>
+                                <input type="number" min="0" class="form-control" id="quantity" name="quantity" required
+                                    placeholder="2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price ($)</label>
+                                <input type="" min="0" class="form-control" id="price" name="price" step="0.01" required
+                                    placeholder="2">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Add Item</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <table>
         <thead>
             <tr>
@@ -9,22 +55,108 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
             <% items.forEach((item) => { %>
             <tr>
-                <td><%= item.id %></td>
+                <td><%= item.id.substring(0,10) %></td>
                 <td><%= item.name %></td>
                 <td><%= item.description %></td>
-                <td><%= item.price %></td>
-                <td><%= item.quantity %></td>
+                <td>$<%= item.price %></td>
+                <td class="quantity">
+                    <form action="/<%=item.id%>/dec" method="post">
+                        <button type="submit" class="btn btn-info">-</button>
+                    </form>
+                    <%= item.quantity %>
+                    <form action="/<%=item.id%>/inc" method="post">
+                        <button type="submit" class="btn btn-info">+</button>
+                    </form>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#edit<%=item.id%>">
+                        Edit
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="edit<%=item.id%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="/<%= item.id %>?_method=PUT" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" required
+                                                placeholder="Bread" value="<%= item.name  %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Description</label>
+                                            <textarea class="form-control" id="description" name="description" rows="3"
+                                                required
+                                                placeholder="Made using whole wheat"><%= item.description %></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="quantity" class="form-label">Quantity</label>
+                                            <input type="number" min="0" class="form-control" id="quantity" required
+                                                name="quantity" placeholder="2" value="<%= item.quantity %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="price" class="form-label">Price ($)</label>
+                                            <input type="" min="0" class="form-control" id="price" name="price" required
+                                                step="0.01" placeholder="2" value="<%= item.price %>">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#delete<%=item.id%>">
+                        Delete
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete<%=item.id%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="/<%= item.id %>?_method=DELETE" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Deletion Comment</label>
+                                            <textarea class="form-control" id="description" name="deletionComment"
+                                                required rows="3" placeholder="No longer selling"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
             <% }) %>
         </tbody>
     </table>
-    <% items.forEach((item) => { %>
-    <p><%= item.name %></p>
-    <% }) %>
 </main>
 <%- include("partials/footer") %>
