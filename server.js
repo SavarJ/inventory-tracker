@@ -1,4 +1,5 @@
 const express = require("express");
+const methodOverride = require("method-override");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -13,6 +14,7 @@ require("./config/db.config")();
 /* ----------------------- Middlewares and View Engine ---------------------- */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 /* --------------------------------- Routes --------------------------------- */
