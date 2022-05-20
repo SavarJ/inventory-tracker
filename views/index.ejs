@@ -66,11 +66,11 @@
                 <td><%= item.description %></td>
                 <td>$<%= item.price %></td>
                 <td class="quantity">
-                    <form action="/<%=item.id%>/dec" method="post">
+                    <form action="/<%=item.id%>/dec?_method=PATCH" method="post">
                         <button type="submit" class="btn btn-info">-</button>
                     </form>
                     <%= item.quantity %>
-                    <form action="/<%=item.id%>/inc" method="post">
+                    <form action="/<%=item.id%>/inc?_method=PATCH" method="post">
                         <button type="submit" class="btn btn-info">+</button>
                     </form>
                 </td>

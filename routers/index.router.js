@@ -26,7 +26,7 @@ router.put("/:itemId", async (req, res) => {
   return res.redirect("/");
 });
 
-router.post("/:itemId/dec", async (req, res) => {
+router.patch("/:itemId/dec", async (req, res) => {
   const { itemId } = req.params;
   const item = await Item.findById(itemId);
   item.quantity--;
@@ -34,7 +34,7 @@ router.post("/:itemId/dec", async (req, res) => {
   return res.redirect("/");
 });
 
-router.post("/:itemId/inc", async (req, res) => {
+router.patch("/:itemId/inc", async (req, res) => {
   const { itemId } = req.params;
   const item = await Item.findById(itemId);
   item.quantity++;
