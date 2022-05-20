@@ -1,0 +1,30 @@
+<%- include("partials/header") %>
+<main>
+    <h1 class="header">Inventory Tracker</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% items.forEach((item) => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.name %></td>
+                <td><%= item.description %></td>
+                <td><%= item.price %></td>
+                <td><%= item.quantity %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <% items.forEach((item) => { %>
+    <p><%= item.name %></p>
+    <% }) %>
+</main>
+<%- include("partials/footer") %>
