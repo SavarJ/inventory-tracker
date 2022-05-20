@@ -2,7 +2,6 @@ const Item = require("../models/Item.model");
 
 const ensureItemExists = async (req, res, next) => {
   const { itemId } = req.params;
-  console.log(req.params);
   try {
     const possibleItem = await Item.findById(itemId);
     if (!possibleItem) {
