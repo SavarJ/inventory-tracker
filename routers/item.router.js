@@ -8,7 +8,11 @@ router.get("/", ItemController.viewItems);
 
 router.post("/", ItemController.createItem);
 
-router.put("/:itemId/", ItemController.editItem);
+router.put(
+  "/:itemId/",
+  ItemMiddleware.ensureItemExists,
+  ItemController.editItem
+);
 
 router.patch(
   "/:itemId/dec",
