@@ -148,7 +148,6 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <% const link = !item.isDeleted ? `/${item.id}?_method=DELETE` : `/${item.id}/recover?_method=PATCH`; %>
-                                <% console.log(link) %>
                                 <form action="<%=link%>" method="post">
                                     <div class="modal-body">
                                         <% if(!item.isDeleted){ %>
