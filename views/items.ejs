@@ -21,23 +21,20 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Bread"
-                                    required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Bread">
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" required
+                                <textarea class="form-control" id="description" name="description" rows="3"
                                     placeholder="Made using whole wheat"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="quantity" class="form-label">Quantity</label>
-                                <input type="number" min="0" class="form-control" id="quantity" name="quantity" required
-                                    placeholder="2">
+                                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="2">
                             </div>
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price ($)</label>
-                                <input type="" min="0" class="form-control" id="price" name="price" step="0.01" required
-                                    placeholder="2">
+                                <input type="" class="form-control" id="price" name="price" step="0.01" placeholder="2">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -101,24 +98,23 @@
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" required
+                                            <input type="text" class="form-control" id="name" name="name"
                                                 placeholder="Bread" value="<%= item.name  %>">
                                         </div>
                                         <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
                                             <textarea class="form-control" id="description" name="description" rows="3"
-                                                required
                                                 placeholder="Made using whole wheat"><%= item.description %></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="quantity" class="form-label">Quantity</label>
-                                            <input type="number" min="0" class="form-control" id="quantity" required
-                                                name="quantity" placeholder="2" value="<%= item.quantity %>">
+                                            <input type="number" class="form-control" id="quantity" name="quantity"
+                                                placeholder="2" value="<%= item.quantity %>">
                                         </div>
                                         <div class="mb-3">
                                             <label for="price" class="form-label">Price ($)</label>
-                                            <input type="" min="0" class="form-control" id="price" name="price" required
-                                                step="0.01" placeholder="2" value="<%= item.price %>">
+                                            <input type="" class="form-control" id="price" name="price" step="0.01"
+                                                placeholder="2" value="<%= item.price %>">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -154,7 +150,7 @@
                                         <div class="mb-3">
                                             <label for="description" class="form-label">Deletion Comment</label>
                                             <textarea class="form-control" id="description" name="deletionComment"
-                                                required rows="3" placeholder="No longer selling"></textarea>
+                                                rows="3" placeholder="No longer selling"></textarea>
                                         </div>
                                         <% } else { %>
                                         <p>Are you sure you want to recover this item</p>
