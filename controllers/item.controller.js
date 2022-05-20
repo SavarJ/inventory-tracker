@@ -7,14 +7,14 @@ const viewItems = async (req, res) => {
 };
 
 const createItem = async (req, res) => {
-  const { name, price, quantity, description } = req.body;
+  const { name, price, quantity, description } = req.bodyObject;
   const item = new Item({ name, price, quantity, description });
   await item.save();
   return res.redirect("/");
 };
 
 const editItem = async (req, res) => {
-  const { name, price, quantity, description } = req.body;
+  const { name, price, quantity, description } = req.bodyObject;
   const { item } = req;
   item.name = name;
   item.price = price;

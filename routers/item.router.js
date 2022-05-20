@@ -6,17 +6,19 @@ const ItemController = require("../controllers/item.controller");
 
 router.get("/", ItemController.viewItems);
 
-router.post("/", ItemController.createItem);
+router.post("/", ItemMiddleware.validateItemForm, ItemController.createItem);
 
 router.put(
   "/:itemId/",
   ItemMiddleware.ensureItemExists,
+  ItemMiddleware.validateItemForm,
   ItemController.editItem
 );
 
 router.patch(
   "/:itemId/dec",
   ItemMiddleware.ensureItemExists,
+  ItemMiddleware.validateQuantityDecrement,
   ItemController.decrementQuantity
 );
 
