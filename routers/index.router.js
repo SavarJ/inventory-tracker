@@ -4,7 +4,8 @@ const router = express.Router();
 const Item = require("../models/Item.model");
 
 router.get("/", async (req, res) => {
-  const items = await Item.find({});
+  const viewDeleted = req.query.viewDeleted === "true";
+  const items = await Item.find({ isDeleted: viewDeleted });
   return res.render("index", { items });
 });
 
@@ -38,6 +39,25 @@ router.patch("/:itemId/inc", async (req, res) => {
   const { itemId } = req.params;
   const item = await Item.findById(itemId);
   item.quantity++;
+  await item.save();
+  return res.redirect("/");
+});
+
+router.delete("/:itemId", async (req, res) => {
+  const { itemId } = req.params;
+  const { deletionComment } = req.body;
+  const item = await Item.findById(itemId);
+  item.isDeleted = true;
+  item.deletionComment = deletionComment;
+  await item.save();
+  return res.redirect("/");
+});
+
+router.patch("/:itemId/recover", async (req, res) => {
+  const { itemId } = req.params;
+  const item = await Item.findById(itemId);
+  item.isDeleted = false;
+  item.deletionComment = null;
   await item.save();
   return res.redirect("/");
 });
