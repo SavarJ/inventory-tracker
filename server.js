@@ -14,11 +14,20 @@ require("./config/db.config")();
 /* ----------------------- Middlewares and View Engine ---------------------- */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 /* --------------------------------- Routes --------------------------------- */
-app.use("/", require("./routers/index.router"));
+const indexRouter = require("./routers/index.router");
+const pageNotFoundRouter = require("./routers/404.router");
+
+app.use("/", indexRouter);
+app.use("*", pageNotFoundRouter);
+
+/* ------------------------------ Error Handler ----------------------------- */
+app.use((err, req, res, next) => {
+  console.error("An error occurred: ", err);
+  res.render("error", { error: err });
+});
 
 /* --------------------------- Starting the server -------------------------- */
 app.listen(PORT, () => {
