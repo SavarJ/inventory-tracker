@@ -31,16 +31,13 @@ table {
   width: 100%;
 }
 thead {
-  background-color: #f2f2f2;
+  background-color: #a6a6a6;
 }
 tbody {
   background-color: #f2f2f2;
 }
-tr:nth-child(even) {
-  background-color: transparent;
-}
-tr:nth-child(odd) {
-  background-color: #f2f2f2;
+tr:nth-child(2n + 2) {
+  background-color: #cdcbcb;
 }
 td,
 th {
@@ -52,4 +49,10 @@ th {
 .header {
   width: 100%;
   text-align: center;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
 }
