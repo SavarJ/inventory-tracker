@@ -14,6 +14,7 @@ require("./config/db.config")();
 /* ----------------------- Middlewares and View Engine ---------------------- */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 /* --------------------------------- Routes --------------------------------- */
@@ -22,8 +23,8 @@ const itemRouter = require("./routers/item.router");
 const pageNotFoundRouter = require("./routers/404.router");
 
 app.use("/", indexRouter);
-app.use("/:itemId/", itemRouter);
-app.use("*", pageNotFoundRouter);
+app.use("/items", itemRouter);
+// app.use("*", pageNotFoundRouter);
 
 /* ------------------------------ Error Handler ----------------------------- */
 app.use((err, req, res, next) => {

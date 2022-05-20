@@ -4,16 +4,34 @@ const router = express.Router();
 const ItemMiddleware = require("../middlewares/item.middleware");
 const ItemController = require("../controllers/item.controller");
 
-router.use(ItemMiddleware.ensureItemExists);
+router.get("/", ItemController.viewItems);
 
-router.put("/", ItemController.editItem);
+router.post("/", ItemController.createItem);
 
-router.patch("/dec", ItemController.decrementQuantity);
+router.put("/:itemId/", ItemController.editItem);
 
-router.patch("/inc", ItemController.incrementQuantity);
+router.patch(
+  "/:itemId/dec",
+  ItemMiddleware.ensureItemExists,
+  ItemController.decrementQuantity
+);
 
-router.delete("/", ItemController.deleteItem);
+router.patch(
+  "/:itemId/inc",
+  ItemMiddleware.ensureItemExists,
+  ItemController.incrementQuantity
+);
 
-router.patch("/recover", ItemController.recoverItem);
+router.delete(
+  "/:itemId/",
+  ItemMiddleware.ensureItemExists,
+  ItemController.deleteItem
+);
+
+router.patch(
+  "/:itemId/recover",
+  ItemMiddleware.ensureItemExists,
+  ItemController.recoverItem
+);
 
 module.exports = router;

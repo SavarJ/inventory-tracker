@@ -17,7 +17,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/" method="post">
+                    <form action="/items" method="post">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
@@ -74,11 +74,11 @@
                 <td><%= item.description %></td>
                 <td>$<%= item.price %></td>
                 <td class="quantity">
-                    <form action="/<%=item.id%>/dec?_method=PATCH" method="post">
+                    <form action="/items/<%=item.id%>/dec?_method=PATCH" method="post">
                         <button type="submit" class="btn btn-info">-</button>
                     </form>
                     <%= item.quantity %>
-                    <form action="/<%=item.id%>/inc?_method=PATCH" method="post">
+                    <form action="/items/<%=item.id%>/inc?_method=PATCH" method="post">
                         <button type="submit" class="btn btn-info">+</button>
                     </form>
                 </td>
@@ -97,7 +97,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form action="/<%= item.id %>?_method=PUT" method="post">
+                                <form action="/items/<%= item.id %>?_method=PUT" method="post">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
@@ -147,7 +147,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <% const link = !item.isDeleted ? `/${item.id}?_method=DELETE` : `/${item.id}/recover?_method=PATCH`; %>
+                                <% const link = !item.isDeleted ? `/items/${item.id}?_method=DELETE` : `/items/${item.id}/recover?_method=PATCH`; %>
                                 <form action="<%=link%>" method="post">
                                     <div class="modal-body">
                                         <% if(!item.isDeleted){ %>
