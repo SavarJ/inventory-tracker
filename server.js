@@ -24,7 +24,7 @@ const pageNotFoundRouter = require("./routers/404.router");
 
 app.use("/", indexRouter);
 app.use("/items", itemRouter);
-// app.use("*", pageNotFoundRouter);
+app.use("*", pageNotFoundRouter);
 
 /* ------------------------------ Error Handler ----------------------------- */
 app.use((err, req, res, next) => {
